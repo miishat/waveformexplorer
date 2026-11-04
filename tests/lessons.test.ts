@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {lessons} from '../src/content/lessons.ts';
+import {symbols,sources} from '../src/content/reference.ts';
+const get=(id:string)=>lessons.find(l=>l.id===id)!;
+test('all 12 investigations have complete graph, source and event references',()=>{assert.equal(lessons.length,12);assert.equal(new Set(lessons.map(l=>l.id)).size,12);for(const l of lessons){assert.ok(l.nodes.some(n=>n.id===l.target));for(const e of l.edges){assert.ok(l.nodes.some(n=>n.id===e.from));assert.ok(l.nodes.some(n=>n.id===e.to));}for(const n of l.nodes){assert.ok(n.line>0&&n.line<=l.rtl.length);for(const f of l.frames){assert.ok(f.samples[n.id]);assert.notEqual(f.values[n.id],undefined);}}for(let i=1;i<l.frames.length;i++)assert.ok(l.frames[i].time>l.frames[i-1].time);assert.ok(l.exercise.answer>=0&&l.exercise.answer<l.exercise.options.length);}});
+test('atlas entries resolve to a source and state view applicability',()=>{for(const s of symbols){assert.ok(sources.some(r=>r.id===s.source));assert.ok(s.views&&s.page&&s.confusion&&s.status);}});
+test('stable active input differs from toggling inactive input',()=>{const f=get('selection').frames[1];assert.equal(f.samples.a.active,true);assert.equal(f.samples.a.changed,false);assert.equal(f.samples.b.active,false);assert.equal(f.samples.b.changed,true);assert.equal(f.values.q,'2A');});
+test('sampling lesson distinguishes post-event data from sampled RHS',()=>{const f=get('sampling').frames[0];assert.equal(f.values.d,'22');assert.equal(f.samples.d.value,'11');assert.equal(f.values.q,'11');});
+test('enable lesson separates hold and equal-value write',()=>{const [,hold,write]=get('enable').frames;assert.equal(hold.assigned,false);assert.equal(write.assigned,true);assert.equal(hold.changed,false);assert.equal(write.changed,false);assert.equal(hold.values.q,write.values.q);});
+test('asynchronous reset responds between edges',()=>{const f=get('reset').frames[1];assert.equal(f.time,15);assert.equal(f.values.sync,'2A');assert.equal(f.values.q,'00');assert.match(f.event,/no clock edge/);});
+test('pipeline trace connects q to historical rather than current upstream values',()=>{const f=get('pipeline').frames[2];assert.equal(f.values.r0,'99');assert.equal(f.samples.r0.value,'2A');assert.equal(f.samples.r0.at,'10 ns+');assert.equal(f.samples.r1.at,'20 ns+');assert.equal(f.samples.q.value,'2A');});
+test('four-bit counter wraps and the bus slice ignores low-bit changes',()=>{assert.equal(get('counter').frames[2].values.q,'0');const f=get('slice').frames;assert.equal(f[0].values.q,f[1].values.q);assert.notEqual(f[0].values.bus,f[1].values.bus);});
+test('read-during-write fixture reads old content before NBA update',()=>{const f=get('memory').frames[2];assert.equal(f.values.mem,'66');assert.equal(f.samples.mem.value,'55');assert.equal(f.values.q,'55');});
+test('unknown is masked by zero and visible with one',()=>{assert.deepEqual(get('unknown').frames.map(f=>f.values.q),['0','X','X']);});
+test('delayed output changes at 12ns, not at input transition',()=>{const f=get('delay').frames;assert.deepEqual(f.map(x=>x.values.q),['0','0','1']);assert.equal(f[2].samples.a.at,'10 ns transition');});
+test('target transition marker agrees with event fact',()=>{for(const l of lessons)for(const f of l.frames)assert.equal(f.samples[l.target].changed,f.changed,`${l.id} at ${f.time}`);});
