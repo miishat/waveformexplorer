@@ -7,3 +7,10 @@
 @media print{.sidebar,.topbar,.main-footer,.button{display:none!important}.workspace{margin:0}main{padding:0}.app{background:white;color:black}.quick-layout{display:block}.paper-card{break-inside:avoid;border:0}.quick-symbol{padding:5px 0}h1{font-size:26px}}
 .method-explanation{display:flex;gap:14px;padding:12px 19px;border-bottom:1px solid var(--border);font-size:10px;line-height:1.65;color:var(--muted);background:var(--paper)}.method-explanation b{white-space:nowrap;color:var(--green)}@media(max-width:760px){.method-explanation{display:block}.method-explanation b{display:block;margin-bottom:4px}}
 .diagram-pin.inactive-pin{fill:#697970}main{padding-top:28px}.route-cards{margin:20px 0 26px}.route-cards button{padding-top:15px;padding-bottom:15px}.page-heading{margin-bottom:19px}.section-title{margin-top:20px}.page-heading h1{margin-top:11px;margin-bottom:11px}
+/* SVG focus follows the symbol, never the group's label/timestamp bounds. */
+.flow-svg [role=button]:focus,.flow-svg [role=button]:focus-visible{outline:none}
+.flow-svg .diagram-node.selected .node-body{stroke:#83bdff;stroke-width:2;filter:none}
+.flow-svg .diagram-node>[role=button]:focus-visible .node-body{stroke:#b8d9ff;stroke-width:3;stroke-dasharray:5 2}
+.flow-svg .diagram-pin:focus-visible{stroke:#b8d9ff;stroke-width:3}
+.flow-svg .diagram-edge:focus-visible .visible-path{stroke:#b8d9ff;stroke-width:3;stroke-dasharray:5 2}
+.flow-svg .time-boundary:focus-visible path,.flow-svg .input-group:focus-visible rect{stroke:#b8d9ff;stroke-width:3;stroke-dasharray:5 2}
