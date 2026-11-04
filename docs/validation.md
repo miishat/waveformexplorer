@@ -2,7 +2,7 @@
 
 - TypeScript check passed.
 - Production bundle built with Vite 8.0.16.
-- 19 automated model/content checks passed, including pre-edge sampling, pipeline history, hold versus same-value assignment, reset, bit slices, X masking, memory read-before-NBA-write, delayed mode comparison, marker consistency and geometry dimensions.
+- 20 automated model/content checks passed, including pre-edge sampling, pipeline history, hold versus same-value assignment, reset, bit slices, X masking, memory read-before-NBA-write, delayed mode comparison, marker consistency and geometry dimensions.
 - Initial model tests were observed failing before implementation. Target-transition consistency regression was observed failing before the correction.
 - Local package downloads were blocked. Dependencies already installed on this computer were copied into this isolated workspace and exact versions recorded in package.json.
 - HDL simulator unavailable; RTL fixtures are manually reviewed, not simulator-certified.
@@ -19,4 +19,6 @@
 
 ## Limits
 
-Drawings are simplified educational recreations. Installed-version legend fidelity remains unverified. Cycle and transition interpretations are curated teaching data, not proprietary analysis. Browser interaction verification remains pending if the standalone preview also cannot be opened.
+Drawings are simplified educational recreations. Installed-version legend fidelity remains unverified. Cycle and transition interpretations are curated teaching data, not proprietary analysis. Standalone browser preview verified: app renders, event stepping changes values, Register view disables transition tracing, atlas search filters, symbol dialog opens, lesson navigation works, and delayed cycle interpretation differs from transition interpretation.
+
+- Browser QA identified input-pin inspection showing the operation result. Fixed by resolving each distinct operand pin to its source value; added regression coverage.
