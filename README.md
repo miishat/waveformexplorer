@@ -1,6 +1,6 @@
 # Verdi Temporal Flow Explorer
 
-React + TypeScript educational application with 19 symbol/concept cards, 12 guided investigations, three flow representations, synchronized RTL/event context, glossary, tracing reference and printable checklist.
+React + TypeScript educational application with 19 symbol/concept cards, 18 guided investigations, three flow representations, synchronized RTL/event context, glossary, tracing reference and printable checklist.
 
 ## Run
 

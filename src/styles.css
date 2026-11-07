@@ -239,3 +239,5 @@ main,main.compact-workspace{padding-top:20px}
 .canvas-panel .canvas-key{gap:8px 12px}.canvas-panel .canvas-key span{white-space:nowrap}
 /* In light mode the popup follows the light theme, with darker marker colors so they stay visible on the light card. */
 .app.light .canvas-panel{--state-active:#8f7d2c;--state-inactive:#5f6b70;--state-control:#7d5aa6;--state-transition:#c9573a;--state-target:#6b7480;--diagram-selection:#2f74c9}
+/* Tighter zoom controls so the diagram toolbar fits on one line next to Legend, Shortcuts and Options. */
+.canvas-toolbar .zoom-tools{gap:2px}.canvas-toolbar .zoom-tools button{padding:5px}

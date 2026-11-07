@@ -37,7 +37,10 @@ export function Diagram({lesson,frame,view,method,selection,onSelect,revealed,on
   if(initialized.current||!svgRef.current||!contentRef.current)return;
   if(Math.abs(svgRef.current.clientWidth-viewport.width)>1)return;
   const bounds=contentRef.current.getBBox();
-  setPan({x:viewport.width/2-bounds.x-bounds.width/2,y:viewport.height/2-bounds.y-bounds.height/2});
+  // Center the diagram, and zoom out (never in) when it is wider or taller than the canvas.
+  const zoomToFit=Math.min(1,fitBounds(bounds,viewport).zoom);
+  setZoom(zoomToFit);
+  setPan({x:(viewport.width/2-bounds.x-bounds.width/2)*zoomToFit,y:(viewport.height/2-bounds.y-bounds.height/2)*zoomToFit});
   initialized.current=true;
  },[viewport]);
  const abstract=view==='register';
@@ -48,7 +51,9 @@ export function Diagram({lesson,frame,view,method,selection,onSelect,revealed,on
  const visible=new Set(revealed);
  all=all.filter(n=>visible.has(n.id)&&(!activeOnly||frame.samples[n.id].active||n.id===lesson.target));
  const groupInputs=lesson.nodes.filter(n=>lesson.edges.some(e=>e.from===n.id&&lesson.nodes.find(x=>x.id===e.to)?.internal));
- const positions=Object.fromEntries(all.map((n,i)=>[n.id,abstract?(n.id===lesson.target?{x:650,y:140}:{x:115+(i%2)*190,y:120+Math.floor(i/2)*140}):view==='compact'&&groupInputs.length>0?(n.id===lesson.target?{x:665,y:115}:n.internal?{x:415,y:115}:groupInputs.includes(n)?{x:130,y:110+groupInputs.indexOf(n)*108}:{x:n.x,y:n.y}):{x:n.x,y:n.y}]));
+ // In Compact view, an input that feeds a grouped input sits to its left, stacked when several feed the same one.
+ const upstreamOf=(node:typeof lesson.nodes[number])=>{const g=groupInputs.find(x=>lesson.edges.some(e=>e.from===node.id&&e.to===x.id));if(!g||node.internal||node.id===lesson.target)return {x:node.x,y:node.y};const peers=lesson.nodes.filter(m=>!m.internal&&!groupInputs.includes(m)&&lesson.edges.some(e=>e.from===m.id&&e.to===g.id));return {x:-90,y:110+groupInputs.indexOf(g)*108+(peers.indexOf(node)-(peers.length-1)/2)*95};};
+ const positions=Object.fromEntries(all.map((n,i)=>[n.id,abstract?(n.id===lesson.target?{x:650,y:140}:{x:115+(i%2)*190,y:120+Math.floor(i/2)*140}):view==='compact'&&groupInputs.length>0?(n.id===lesson.target?{x:665,y:115}:n.internal?{x:415,y:115}:groupInputs.includes(n)?{x:130,y:110+groupInputs.indexOf(n)*108}:upstreamOf(n)):{x:n.x,y:n.y}]));
  const hasGroup=view!=='tfv'&&all.length>1&&((abstract&&connections.every(e=>e.to===lesson.target))||(!abstract&&groupInputs.length>0));
  const available=new Set(['time:event',...(hasGroup?['group:inputs']:[])]);
  for(const n of all){available.add(`node:${n.id}`);available.add(`pin:${n.id}:out`);}
