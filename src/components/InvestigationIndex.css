@@ -1,0 +1,24 @@
+/* Collapsible card listing every investigation as a table, with the Sources link in its header. */
+.investigation-index{margin:16px 0 0;background:var(--paper);border:1px solid var(--border);border-radius:9px;overflow:hidden;color:var(--ink)}
+.index-head{display:flex;align-items:center}
+.index-toggle{flex:1;display:flex;align-items:center;gap:10px;padding:14px 18px;text-align:left;color:var(--ink)}
+.index-toggle:hover{background:var(--soft)}
+.index-toggle>svg:first-child{color:var(--selection)}
+.index-toggle b{font-size:14px;font-weight:600}
+.index-progress{margin-left:auto;font-size:12px;color:var(--muted)}
+.index-chevron{color:var(--muted);transition:transform .15s}.index-chevron.open{transform:rotate(180deg)}
+.index-sources{display:inline-flex;align-items:center;gap:6px;margin-right:12px;padding:6px 10px 6px 16px;border-left:1px solid var(--border);font-size:12px;color:var(--selection);white-space:nowrap}
+.index-sources:hover{text-decoration:underline}
+.index-body{padding:6px 18px 18px;border-top:1px solid var(--border);overflow-x:auto}
+.index-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
+.index-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--border)}
+.index-table td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--ink)}
+.index-table tr:last-child td{border-bottom:0}
+.index-table tbody tr{cursor:pointer}.index-table tbody tr:hover td{background:var(--soft)}
+.index-table tr.current td{background:var(--selection-bg)}
+.index-num{font:12px 'IBM Plex Mono',monospace;color:var(--muted)}
+.index-title{display:block;padding:0;font-size:13px;font-weight:600;text-align:left;color:var(--ink)}
+.index-table td small{display:block;margin-top:3px;font-size:12px;color:var(--muted)}
+.index-tag{display:inline-flex;padding:2px 8px;border-radius:20px;border:1px solid var(--border);font-size:11px;color:var(--muted);white-space:nowrap}
+.index-status{font-size:12px;color:var(--muted);white-space:nowrap}.index-status.started{color:var(--ink)}.index-status.done{display:inline-flex;align-items:center;gap:5px;color:var(--selection)}
+@media(max-width:700px){.index-progress{display:none}.index-table th:nth-child(3),.index-table td:nth-child(3){display:none}}

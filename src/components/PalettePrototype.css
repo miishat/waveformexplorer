@@ -1,0 +1,35 @@
+/* Palette-only prototype; all layouts and signal-state semantics stay shared. */
+.app.light[data-palette=A]{--bg:#d6e0d2;--paper:#f7f8f2;--sidebar:#c3d1bd;--soft:#e5ecdf;--border:#9eaf97;--ink:#202c24;--muted:#465447;--selection:#28543c;--selection-bg:#c9ddc8;--green:#28543c;--palette-canvas:#20272c}
+.app.light[data-palette=B]{--bg:#e4d7c2;--paper:#faf7ef;--sidebar:#d6c3a3;--soft:#efe7d7;--border:#b8a17e;--ink:#30291f;--muted:#60513b;--selection:#714b25;--selection-bg:#e7d0ab;--green:#714b25;--palette-canvas:#20272c}
+.app.light[data-palette=C]{--bg:#d2e0ea;--paper:#f5f8fa;--sidebar:#b8cedd;--soft:#e2ecf2;--border:#93adbf;--ink:#202e3b;--muted:#435b6c;--selection:#28577d;--selection-bg:#c5dceb;--green:#28577d;--palette-canvas:#20272c}
+.app.light[data-palette=D]{--bg:#ddd5e7;--paper:#f8f6fa;--sidebar:#cbbcd9;--soft:#ebe4f1;--border:#ad9bbf;--ink:#302639;--muted:#594b69;--selection:#63427e;--selection-bg:#d9c9e9;--green:#63427e;--palette-canvas:#20272c}
+.app.light[data-palette=E]{--bg:#e7d6cd;--paper:#fbf6f1;--sidebar:#d9bcb0;--soft:#f0e3da;--border:#bf9c8e;--ink:#382821;--muted:#654c40;--selection:#804532;--selection-bg:#eac9bb;--green:#804532;--palette-canvas:#20272c}
+.app[data-palette]{padding-bottom:86px}
+.app[data-palette] .guided-instructions{background:var(--paper)}
+.app[data-palette] .guided-steps,.app[data-palette] .guided-options,.app[data-palette] .panel-heading{background:var(--soft)}
+.app[data-palette] .code-panel,.app[data-palette] .wave-panel,.app[data-palette] .guided-stage,.app[data-palette] .lesson-list button{background:var(--paper)}
+.app[data-palette] .wave-value:not(.current):not(.unknown){background:transparent;color:var(--ink);border-color:var(--border)}
+.app[data-palette] .diagram-wrap{background:var(--palette-canvas)}
+.app[data-palette] .brand-mark{background:var(--selection);color:var(--paper)}
+.app[data-palette] .guided-actions .button{background:var(--selection);color:var(--paper)}
+.palette-prototype{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:5px;background:#24313b;color:#edf2f5;border:1px solid #50606d;padding:8px 12px;border-radius:8px;box-shadow:0 4px 20px #0002;white-space:nowrap}
+.palette-prototype button{display:flex;align-items:center;gap:8px;color:inherit;padding:9px 11px;border-radius:4px;font-size:13px}
+.palette-prototype button:hover{background:#3b4a56}.palette-prototype button[aria-pressed=true]{background:#e7edf2;color:#24313b}
+.palette-prototype strong{font-size:13px;font-weight:500;margin:0 12px}.palette-prototype a{font-size:12px;color:#d4dfe8;border-left:1px solid #64717c;padding-left:12px;margin-left:6px}
+.palette-swatch{width:16px;height:16px;display:block;border-radius:50%;border:1px solid #ffffff60}.swatch-0{background:#b8ceb1}.swatch-1{background:#d8be95}.swatch-2{background:#afcadd}.swatch-3{background:#c9b4da}.swatch-4{background:#ddb3a4}
+@media(max-width:650px){.palette-prototype{max-width:97vw;padding:6px;gap:2px}.palette-prototype strong{display:none}.palette-prototype button{padding:8px}.palette-prototype a{font-size:11px;padding-left:6px}.palette-swatch{width:12px;height:12px}}
+
+/* Distinct surfaces: saturated shell, quiet reading panels, decisive selection. */
+.app[data-palette] .topbar{background:var(--paper)}
+.app[data-palette] .guided-steps{background:var(--paper)}
+.app[data-palette] .guided-steps [aria-current]{font-weight:650}
+.app[data-palette] .guided-options{background:var(--soft)}
+.app[data-palette] .panel-heading{color:var(--ink);border-bottom:1px solid var(--border)}
+.app[data-palette] .guided-instructions p,.app[data-palette] .guided-instructions small,.app[data-palette] .guided-options>summary{color:var(--muted)}
+.app[data-palette] .sidebar nav button{color:var(--ink)}
+.app[data-palette] .sidebar nav button.active{background:var(--selection);color:#fff}
+.app[data-palette] .guided-events [aria-pressed=true]{background:var(--selection);color:#fff}
+.app[data-palette] .wave-value.current:not(.unknown){background:var(--selection);color:#fff;border-color:var(--selection)}
+.app[data-palette] .code-lines .line-highlight{border-left-width:3px}
+.app[data-palette] select{border-color:var(--border);color:var(--ink);background:var(--paper)}
+.app[data-palette] .guided-lesson{border-color:var(--border)}

@@ -1,0 +1,22 @@
+/* Rose clay: soft surfaces with clear contrast. */
+.app.light{--bg:#e7d6cd;--paper:#fbf6f1;--sidebar:#d9bcb0;--soft:#f0e3da;--border:#bf9c8e;--ink:#382821;--muted:#654c40;--selection:#804532;--selection-bg:#eac9bb;--green:#804532;--palette-canvas:#20272c}
+.app.light .guided-instructions{background:var(--paper)}
+.app.light .guided-steps,.app.light .guided-options,.app.light .panel-heading{background:var(--soft)}
+.app.light .code-panel,.app.light .wave-panel,.app.light .guided-stage,.app.light .lesson-list button{background:var(--paper)}
+.app.light .wave-value:not(.current):not(.unknown){background:transparent;color:var(--ink);border-color:var(--border)}
+.app.light .diagram-wrap{background:var(--palette-canvas)}
+.app.light .brand-mark{background:var(--selection);color:var(--paper)}
+.app.light .guided-actions .button{background:var(--selection);color:var(--paper)}
+.app.light .topbar{background:var(--paper)}
+.app.light .guided-steps{background:var(--paper)}
+.app.light .guided-steps [aria-current]{font-weight:650}
+.app.light .guided-options{background:var(--soft)}
+.app.light .panel-heading{color:var(--ink);border-bottom:1px solid var(--border)}
+.app.light .guided-instructions p,.app.light .guided-instructions small,.app.light .guided-options>summary{color:var(--muted)}
+.app.light .sidebar nav button{color:var(--ink)}
+.app.light .sidebar nav button.active{background:var(--selection);color:#fff}
+.app.light .guided-events [aria-pressed=true]{background:var(--selection);color:#fff}
+.app.light .wave-value.current:not(.unknown){background:var(--selection);color:#fff;border-color:var(--selection)}
+.app.light .code-lines .line-highlight{border-left-width:3px}
+.app.light select{border-color:var(--border);color:var(--ink);background:var(--paper)}
+.app.light .guided-lesson{border-color:var(--border)}

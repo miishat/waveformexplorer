@@ -1,0 +1,16 @@
+/* Graphite: neutral grey dark surfaces with a muted coral selection color. */
+.app.dark .topbar,.app.dark .guided-steps,.app.dark .guided-instructions,.app.dark .guided-stage,.app.dark .code-panel,.app.dark .wave-panel,.app.dark .lesson-list button{background:var(--paper)}
+.app.dark .guided-options,.app.dark .panel-heading{background:var(--soft)}
+.app.dark .panel-heading{color:var(--ink);border-bottom:1px solid var(--border)}
+.app.dark .guided-lesson{border-color:var(--border)}
+.app.dark .diagram-wrap{background:var(--canvas)}
+.app.dark .brand-mark,.app.dark .guided-actions .button,.app.dark .button{background:var(--selection);color:var(--on-sel)}
+.app.dark .sidebar nav button{color:var(--muted)}
+.app.dark .sidebar nav button.active{background:var(--selection-bg);color:var(--ink)}
+.app.dark .guided-steps [aria-current]{font-weight:650;color:var(--ink)}
+.app.dark .guided-events [aria-pressed=true],.app.dark .wave-value.current:not(.unknown){background:var(--selection);color:var(--on-sel);border-color:var(--selection)}
+.app.dark .wave-value:not(.current):not(.unknown){background:transparent;color:var(--ink);border-color:var(--border)}
+.app.dark .code-lines code{color:var(--green)}
+.app.dark .code-lines .line-highlight{background:var(--selection-bg);border-left:3px solid var(--selection)}
+.app.dark .progress-track i{background:var(--selection)}
+.app.dark .category-tabs .chosen{background:var(--selection);color:var(--on-sel);border-color:var(--selection)}
