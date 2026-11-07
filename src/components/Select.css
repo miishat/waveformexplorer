@@ -11,6 +11,3 @@
 .select-option[aria-selected=true]{background:var(--selection-bg);color:var(--selection);font-weight:600}
 .select-option[aria-selected=true].focused{outline-color:var(--selection)}
 .select-option[aria-disabled=true]{opacity:.45;cursor:not-allowed}
-.lesson-picker .app-select{width:360px}.appearance-picker .app-select{min-width:210px}
-.appearance-picker .select-menu{left:auto;right:0}
-@media(max-width:700px){.lesson-picker .app-select{width:100%}.appearance-picker .app-select{min-width:180px}.method-select{flex-wrap:wrap}}

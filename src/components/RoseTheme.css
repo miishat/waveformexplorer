@@ -6,7 +6,7 @@
 .app.light .wave-value:not(.current):not(.unknown){background:transparent;color:var(--ink);border-color:var(--border)}
 .app.light .diagram-wrap{background:var(--palette-canvas)}
 .app.light .brand-mark{background:var(--selection);color:var(--paper)}
-.app.light .guided-actions .button{background:var(--selection);color:var(--paper)}
+
 .app.light .topbar{background:var(--paper)}
 .app.light .guided-steps{background:var(--paper)}
 .app.light .guided-steps [aria-current]{font-weight:650}
@@ -15,7 +15,7 @@
 .app.light .guided-instructions p,.app.light .guided-instructions small,.app.light .guided-options>summary{color:var(--muted)}
 .app.light .sidebar nav button{color:var(--ink)}
 .app.light .sidebar nav button.active{background:var(--selection);color:#fff}
-.app.light .guided-events [aria-pressed=true]{background:var(--selection);color:#fff}
+
 .app.light .wave-value.current:not(.unknown){background:var(--selection);color:#fff;border-color:var(--selection)}
 .app.light .code-lines .line-highlight{border-left-width:3px}
 .app.light select{border-color:var(--border);color:var(--ink);background:var(--paper)}

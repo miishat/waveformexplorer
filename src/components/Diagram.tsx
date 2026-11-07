@@ -37,8 +37,8 @@ export function Diagram({lesson,frame,view,method,selection,onSelect,revealed,on
   if(initialized.current||!svgRef.current||!contentRef.current)return;
   if(Math.abs(svgRef.current.clientWidth-viewport.width)>1)return;
   const bounds=contentRef.current.getBBox();
-  // Center the diagram, and zoom out (never in) when it is wider or taller than the canvas.
-  const zoomToFit=Math.min(1,fitBounds(bounds,viewport).zoom);
+  // Center the diagram, and zoom out (never in, and not below 70% so text stays readable) when it is larger than the canvas.
+  const zoomToFit=Math.max(.7,Math.min(1,fitBounds(bounds,viewport).zoom));
   setZoom(zoomToFit);
   setPan({x:(viewport.width/2-bounds.x-bounds.width/2)*zoomToFit,y:(viewport.height/2-bounds.y-bounds.height/2)*zoomToFit});
   initialized.current=true;
