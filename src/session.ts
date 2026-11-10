@@ -4,7 +4,7 @@ import {compatibleMethod,type View,type Method} from './model.ts';
 export type LessonProgress={step:number;index:number;view:View;method:Method;activeOnly:boolean};
 export type Appearance='reference'|'teaching';
 export type Session={lessonId:string;appearance:Appearance;sidebar:boolean|null;progress:Record<string,LessonProgress>};
-type LessonShape={id:string;target:string;frames:unknown[];nodes:{id:string;internal?:boolean}[]};
+type LessonShape={id:string;defaultMethod?:Method;target:string;frames:unknown[];nodes:{id:string;internal?:boolean}[]};
 
 export const SESSION_KEY='tfv-session';
 export const STEP_LABELS=['Observe','Inspect','Explain','Check'] as const;
@@ -12,7 +12,7 @@ export const STEP_COUNT=STEP_LABELS.length;
 const views:View[]=['tfv','compact','register'];
 
 export function defaultProgress(lesson:LessonShape):LessonProgress{
- return {step:0,index:0,view:'tfv',method:lesson.id==='delay'?'transition':'cycle',activeOnly:false};
+ return {step:0,index:0,view:'tfv',method:lesson.defaultMethod??'cycle',activeOnly:false};
 }
 
 const int=(v:unknown,max:number)=>typeof v==='number'&&Number.isInteger(v)&&v>=0&&v<max?v:0;

@@ -1,6 +1,6 @@
 # Verdi Temporal Flow Explorer
 
-React + TypeScript educational application with 19 symbol/concept cards, 18 guided investigations, three flow representations, synchronized RTL/event context, glossary, tracing reference and printable checklist.
+React + TypeScript educational application with 19 symbol/concept cards, 28 guided investigations (18 core, 10 expert), three flow representations, synchronized RTL/event context, glossary, tracing reference and printable checklist.
 
 ## Run
 
@@ -20,7 +20,7 @@ The delay example's cycle lens explicitly displays the settled 12 ns summary whi
 
 ## Project structure
 
-- `src/content`: inventory, references, lessons and event fixtures.
+- `src/content`: inventory, references, lessons and event fixtures. `kit.ts` holds the lesson types and helpers, `lessons.ts` the core track, `expert.ts` the expert track.
 - `src/model.ts`, `src/graph.ts`: temporal helpers and geometry.
 - `src/components`: SVG diagram, linked lab, atlas glyphs and reference pages.
 - `tests`: model and content consistency checks.
