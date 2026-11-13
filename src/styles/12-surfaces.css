@@ -1,0 +1,120 @@
+/* Neutral workspace surfaces; color is reserved for state. */
+:root {
+  background: #f4f5f7;
+  color: #28313b;
+}
+.app {
+  --paper: #fff;
+  --bg: #f4f5f7;
+  --ink: #28313b;
+  --muted: #626e7b;
+  --border: #dce1e6;
+  --soft: #edf0f4;
+  --green: #315d87;
+  --sidebar: #f9fafb;
+}
+.app.dark {
+  --paper: #202020;
+  --bg: #161616;
+  --ink: #ececec;
+  --muted: #a8a8a8;
+  --border: #3a3a3a;
+  --soft: #2a2a2a;
+  --green: #e0a090;
+  --sidebar: #1d1d1d;
+}
+[hidden] {
+  display: none !important;
+}
+.brand-mark {
+  background: #34485d;
+  color: #e5edf6;
+  border-radius: 4px;
+}
+.progress-track i {
+  background: var(--selection);
+}
+.app .code-lines code {
+  color: var(--ink);
+}
+.symbol-glyph {
+  color: var(--muted);
+}
+.operand-explanation {
+  border-top: 1px solid var(--border);
+  margin-top: 14px;
+  padding: 12px 0;
+  font-size: 13px;
+}
+.operand-explanation summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.operand-explanation p {
+  font-size: 14px;
+  margin: 10px 0 0;
+  line-height: 1.5;
+}
+.inspector .value-box {
+  background: transparent;
+  padding: 8px 0;
+  margin: 0;
+}
+.inspector .small-tag {
+  border: 0;
+  padding: 0;
+  color: var(--muted);
+}
+.canvas-toolbar {
+  position: relative;
+  gap: 6px;
+  padding: 8px 10px;
+  order: -1;
+  border-top: 0;
+  border-bottom: 1px solid #414b54;
+}
+
+.canvas-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.canvas-toolbar .expand-button {
+  color: #d3dce5;
+  border: 1px solid #46515c;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.canvas-status {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid #414b54;
+  color: #afbbc7;
+  font-size: 12px;
+}
+.node-expand rect {
+  fill: #293b4e;
+  stroke: var(--diagram-selection);
+}
+.node-expand text {
+  font-size: 12px;
+  fill: #c8e1ff;
+}
+.node-expand:hover rect {
+  fill: #3b536b;
+}
+.node-expand {
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  .canvas-toolbar .zoom-tools {
+    margin-left: 0;
+  }
+  .canvas-status {
+    font-size: 11px;
+  }
+}

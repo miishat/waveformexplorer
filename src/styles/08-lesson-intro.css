@@ -1,0 +1,19 @@
+/* Compact introduction: keep the investigation above the working diagram. */
+.topbar {
+  height: 48px;
+}
+.compact-workspace {
+  padding-top: 18px;
+}
+
+.compact-workspace .method-explanation {
+  font-size: 12px;
+}
+.compact-workspace .canvas-key {
+  font-size: 10px;
+}
+@media (max-width: 760px) {
+  .sidebar {
+    top: 48px;
+  }
+}

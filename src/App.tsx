@@ -1,54 +1,189 @@
-import {useState,useEffect,useRef} from 'react';
-import {Search,ArrowRight,Grid2X2,Route,Layers,BookOpen,FileText,Sun,Moon,PanelLeftClose,PanelLeftOpen,Check,ChevronLeft,ChevronRight,X,ExternalLink,ScanLine,GitBranch,RotateCcw} from 'lucide-react';
+import {useCallback, useEffect, useState} from 'react';
 import {lessons} from './content/lessons';
-import {symbols,sources,type SymbolEntry} from './content/reference';
+import {symbols, type SymbolEntry} from './content/reference';
 import {Lab} from './components/Lab';
-import {SymbolGlyph} from './components/Symbol';
 import {Reference} from './components/Reference';
-import {Select} from './components/Select';
+import {Sidebar} from './components/Sidebar';
+import {Topbar} from './components/Topbar';
+import {Atlas} from './components/Atlas';
+import {SymbolDrawer} from './components/SymbolDrawer';
+import {ResumeCard} from './components/ResumeCard';
+import {InvestigationToolbar} from './components/InvestigationToolbar';
+import {InvestigationIndex} from './components/InvestigationIndex';
 import './components/RoseTheme.css';
 import './components/GraphiteTheme.css';
-import {InvestigationIndex} from './components/InvestigationIndex';
-import {SESSION_KEY,STEP_LABELS,parseSession,defaultProgress,hasStarted,type LessonProgress,type Session} from './session';
-function getSaved(key:string,fallback:string){try{return localStorage.getItem(key)??fallback;}catch{return fallback;}}
-function save(key:string,value:string){try{localStorage.setItem(key,value);}catch{/* local storage optional */}}
-function readSession(){let raw:string|null=null;try{raw=localStorage.getItem(SESSION_KEY);}catch{/* local storage optional */}return parseSession(raw,lessons);}
-export default function App(){
- const [restored]=useState(readSession);
- const [page,setPage]=useState('lessons'),[lessonId,setLessonId]=useState(restored.lessonId),[search,setSearch]=useState(''),[category,setCategory]=useState('All Symbols'),[modal,setModal]=useState<SymbolEntry|null>(null),[theme,setTheme]=useState(getSaved('tfv-theme','light')),[appearance,setAppearance]=useState(restored.appearance),[sidebar,setSidebar]=useState(window.innerWidth>760&&(restored.sidebar??true)),[sidebarPref,setSidebarPref]=useState(restored.sidebar),[progress,setProgress]=useState(restored.progress),[resume,setResume]=useState(hasStarted(restored.progress[restored.lessonId])?restored.lessonId:null),[labRun,setLabRun]=useState(0),[completed,setCompleted]=useState<string[]>(()=>{try{const v=JSON.parse(getSaved('tfv-complete','[]'));return Array.isArray(v)?v.filter((x:unknown)=>typeof x==='string'&&lessons.some(l=>l.id===x)):[];}catch{return [];}});
+import {
+  SESSION_KEY,
+  defaultProgress,
+  hasStarted,
+  type LessonProgress,
+  type Session,
+} from './session';
+import {getSaved, readCompleted, readSession, save} from './storage';
+import {REFERENCE_PAGES, isReferencePage} from './navigation';
 
- const atlasCategories=['All Symbols',...new Set(symbols.map(s=>s.category))].map(name=>({name,count:name==='All Symbols'?symbols.length:symbols.filter(s=>s.category===name).length}));
- const dialogRef=useRef<HTMLElement>(null);
- const modalSource=modal?sources.find(s=>s.id===modal.source):undefined;
- useEffect(()=>{document.documentElement.dataset.theme=theme;},[theme]);
- useEffect(()=>{if(!modal)return;const previous=document.activeElement as HTMLElement;const handle=(e:KeyboardEvent)=>{if(e.key==='Escape')setModal(null);if(e.key==='Tab'){const list=dialogRef.current?.querySelectorAll<HTMLElement>('button,a[href],input,select,[tabindex="0"]');if(!list?.length)return;const first=list[0],last=list[list.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}};document.addEventListener('keydown',handle);return()=>{document.removeEventListener('keydown',handle);previous?.focus();};},[modal]);
- const lesson=lessons.find(l=>l.id===lessonId)!;
- useEffect(()=>{const session:Session={lessonId,appearance,sidebar:sidebarPref,progress};save(SESSION_KEY,JSON.stringify(session));},[lessonId,appearance,sidebarPref,progress]);
- const toggleSidebar=()=>{const next=!sidebar;setSidebar(next);setSidebarPref(next);};
- const changeLesson=(id:string)=>{setLessonId(id);setResume(null);};
- const recordProgress=(id:string)=>(p:LessonProgress)=>setProgress(prev=>{const cur=prev[id];if(cur&&cur.step===p.step&&cur.index===p.index&&cur.view===p.view&&cur.method===p.method&&cur.activeOnly===p.activeOnly)return prev;return {...prev,[id]:p};});
- const startOver=()=>{setProgress(prev=>{const next={...prev};delete next[lessonId];return next;});setLabRun(r=>r+1);setResume(null);};
- const resumeLesson=resume?lessons.find(l=>l.id===resume):undefined,resumeProgress=resume?progress[resume]:undefined;
- const openAtlas=(id:string)=>{setModal(symbols.find(s=>s.id===id)??symbols[0]);};
- const navigate=(p:string)=>{setPage(p);setSearch('');if(window.innerWidth<=760)setSidebar(false);window.scrollTo({top:0,behavior:'smooth'});};
- const selectLesson=(id:string)=>{changeLesson(id);navigate('lessons');};
- const filtered=symbols.filter(s=>(category==='All Symbols'||s.category===category)&&`${s.name} ${s.meaning} ${s.views} ${s.shape}`.toLowerCase().includes(search.toLowerCase()));
- const referencePages=[['methods','Tracing Methods'],['glossary','Glossary'],['quick','Quick Reference'],['sources','Sources & Versions']] as const;
- const inReference=referencePages.some(([id])=>id===page);
- const nav=[['lessons','Investigations',ScanLine],['atlas','Symbols',Grid2X2],['methods','Reference',BookOpen]] as const;
- return <div className={`app ${theme} ${sidebar?'':'collapsed'}`}>
- <aside className="sidebar"><a className="brand" href="#" aria-label="Verdi Temporal Flow Explorer" onClick={e=>{e.preventDefault();navigate('lessons');}}><div className="brand-mark"><GitBranch size={23}/></div><div>VERDI<span>TEMPORAL FLOW EXPLORER</span></div></a><nav>{nav.map(([id,label,Icon])=><button key={id} title={label} aria-current={(page===id||(id==='methods'&&inReference))?'page':undefined} className={page===id||(id==='methods'&&inReference)?'active':''} onClick={()=>navigate(id)}><Icon size={17} aria-hidden="true"/><span>{label}</span>{id==='atlas'&&<small>{symbols.length}</small>}{id==='lessons'&&<small>{lessons.length}</small>}</button>)}</nav><div className="side-rule"/><div className="progress-card"><div><span>Learning Progress</span><b>{completed.length}/{lessons.length}</b></div><div className="progress-track"><i style={{width:`${completed.length/lessons.length*100}%`}}/></div></div><button className="sidebar-tab" onClick={toggleSidebar} aria-label={sidebar?'Collapse Sidebar':'Expand Sidebar'} title={sidebar?'Collapse Sidebar':'Expand Sidebar'}>{sidebar?<ChevronLeft size={14}/>:<ChevronRight size={14}/>}</button></aside>
- <div className="workspace"><header className="topbar"><button className="icon-button nav-toggle" onClick={toggleSidebar} aria-label={sidebar?'Collapse Navigation':'Expand Navigation'}>{sidebar?<PanelLeftClose size={18}/>:<PanelLeftOpen size={18}/>}</button><div className="breadcrumb">Verdi Reference <ChevronRight size={12}/><b>{inReference?'Reference':nav.find(n=>n[0]===page)?.[1]}</b></div><div className="topbar-actions"><button className="icon-button" aria-label={theme==='light'?'Switch to Dark Theme':'Switch to Light Theme'} onClick={()=>{const t=theme==='light'?'dark':'light';setTheme(t);save('tfv-theme',t);}}>{theme==='light'?<Moon size={18}/>:<Sun size={18}/>}</button></div></header>
- <main className={page==='lessons'?'compact-workspace':undefined}>
- <section hidden={page!=='lessons'} aria-label="Investigation Workspace">
- {page==='lessons'&&resumeLesson&&resumeProgress&&<div className="resume-card" role="status"><div className="resume-copy"><span className="resume-eyebrow">Continue Where You Left Off</span><b>{String(lessons.indexOf(resumeLesson)+1).padStart(2,'0')} · {resumeLesson.title}</b><small>Step {resumeProgress.step+1} of {STEP_LABELS.length} · {STEP_LABELS[resumeProgress.step]} · {resumeLesson.frames[resumeProgress.index].label}</small></div><button className="step-back" onClick={startOver}><RotateCcw size={14} aria-hidden="true"/>Start Over</button><button className="button" autoFocus onClick={()=>setResume(null)}>Continue <ArrowRight size={16} aria-hidden="true"/></button></div>}
- {page==='lessons'&&<div className="investigation-toolbar"><Select label="Investigation" value={lessonId} onChange={changeLesson} options={lessons.map((l,i)=>({value:l.id,label:`${String(i+1).padStart(2,'0')} · ${l.title}${completed.includes(l.id)?' ✓':''}`}))}/><span className="investigation-tag">{lesson.track==='expert'?'Expert · ':''}{lesson.tag}</span><h2 className="investigation-question">{lesson.question}</h2><div className="style-toggle" role="group" aria-label="Diagram Style">{([['reference','Reference'],['teaching','Teaching']] as const).map(([value,label])=><button key={value} aria-pressed={appearance===value} onClick={()=>setAppearance(value)}>{label}</button>)}</div></div>}
- <Lab key={`${lessonId}:${labRun}`} lesson={lesson} appearance={appearance} initial={progress[lessonId]??defaultProgress(lesson)} onProgress={recordProgress(lessonId)} onAtlas={openAtlas} onComplete={()=>{const next=[...new Set([...completed,lessonId])];setCompleted(next);save('tfv-complete',JSON.stringify(next));}}/>
- {page==='lessons'&&<InvestigationIndex lessons={lessons} lessonId={lessonId} completed={completed} progress={progress} onSelect={selectLesson} onSources={()=>navigate('sources')}/>}</section>
- {page==='atlas'&&<><div className="atlas-heading"><h1>Symbol Atlas</h1><span className="atlas-badge">{symbols.length}</span><p>{symbols.length} documented symbols and concepts, explained in their specific view.</p></div><div className="atlas-bar"><div className="atlas-chips" role="group" aria-label="Category">{atlasCategories.map(c=><button key={c.name} aria-pressed={category===c.name} onClick={()=>setCategory(c.name)}>{c.name}</button>)}</div><span className="atlas-divider"/><label className="atlas-search"><Search size={16}/><input placeholder="Search by name, shape, or meaning…" aria-label="Search Symbols" value={search} onChange={e=>setSearch(e.target.value)}/>{search&&<button aria-label="Clear Search" onClick={()=>setSearch('')}><X size={14}/></button>}</label><span className="atlas-count" aria-live="polite">{filtered.length===symbols.length?`${symbols.length} Symbols`:`${filtered.length} of ${symbols.length}`}</span></div><div className="atlas-grid">{filtered.map(s=><button className="atlas-card" key={s.id} onClick={()=>setModal(s)}><div className="atlas-drawing"><SymbolGlyph shape={s.shape} inactive={s.id==='inactive'}/></div><div className="atlas-card-copy"><span className="eyebrow">{s.category}</span><h3>{s.name}</h3><p>{s.meaning}</p><small>{s.views}</small></div></button>)}</div>{!filtered.length&&<div className="empty-state"><Search size={28}/><h3>No Matching Symbols</h3><p>Try “register”, “time”, “control”, or another category.</p><button className="button" onClick={()=>{setSearch('');setCategory('All Symbols');}}>Reset Filters</button></div>}</>}
- {inReference&&<><nav className="reference-sections" aria-label="Reference Sections">{referencePages.map(([id,label])=><button key={id} aria-current={page===id?'page':undefined} className={page===id?'chosen':''} onClick={()=>navigate(id)}>{label}</button>)}</nav><Reference section={page}/></>}
- {window.__SOURCE_ARCHIVE__&&<footer className="main-footer"><a className="text-button" href={'data:application/zip;base64,'+window.__SOURCE_ARCHIVE__} download="Verdi-Temporal-Flow-Source.zip">Download React / TypeScript Source ↓</a></footer>}</main></div>
- {modal&&<div className="drawer-backdrop" onClick={()=>setModal(null)}><section ref={dialogRef} className="symbol-drawer" role="dialog" aria-modal="true" aria-labelledby="symbol-title" onClick={e=>e.stopPropagation()}><div className="drawer-head"><span className="drawer-chip">{modal.category}</span><button autoFocus className="drawer-close" onClick={()=>setModal(null)} aria-label="Close Symbol Reference"><X size={18}/></button></div><div className="drawer-body"><div className="drawer-figure"><SymbolGlyph shape={modal.shape} inactive={modal.id==='inactive'}/><span>{modal.status}</span></div><h2 id="symbol-title">{modal.name}</h2><p className="drawer-lead">{modal.meaning}</p><dl className="drawer-meta"><div><dt>View</dt><dd>{modal.views}</dd></div><div><dt>Method</dt><dd>{modal.method}</dd></div></dl><h4>Read It in Context</h4><p>{modal.example}</p><h4>Do Not Confuse It With…</h4><p>{modal.confusion}</p><p className="drawer-note">Illustration follows documented descriptions, not a pixel-exact capture. Confirm appearance in your installed Help → Legend → TFV.</p></div>{modalSource&&<div className="drawer-source"><div><b>{modalSource.title}</b><small>{modalSource.version} · pp. {modal.page}</small></div><a href={modalSource.url} target="_blank" rel="noreferrer" aria-label="Open Documentation" title="Open Documentation"><ExternalLink size={16}/></a></div>}</section></div>}
- </div>
+const narrow = () => window.innerWidth <= 760;
+
+export default function App() {
+  const [restored] = useState(readSession);
+  const [page, setPage] = useState('lessons'),
+    [lessonId, setLessonId] = useState(restored.lessonId),
+    [modal, setModal] = useState<SymbolEntry | null>(null),
+    [theme, setTheme] = useState(getSaved('tfv-theme', 'light')),
+    [appearance, setAppearance] = useState(restored.appearance),
+    [sidebar, setSidebar] = useState(!narrow() && (restored.sidebar ?? true)),
+    [sidebarPref, setSidebarPref] = useState(restored.sidebar),
+    [progress, setProgress] = useState(restored.progress),
+    [resume, setResume] = useState(
+      hasStarted(restored.progress[restored.lessonId]) ? restored.lessonId : null,
+    ),
+    [labRun, setLabRun] = useState(0),
+    [completed, setCompleted] = useState(readCompleted);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+  useEffect(() => {
+    const session: Session = {lessonId, appearance, sidebar: sidebarPref, progress};
+    save(SESSION_KEY, JSON.stringify(session));
+  }, [lessonId, appearance, sidebarPref, progress]);
+
+  const lesson = lessons.find(l => l.id === lessonId)!;
+  const toggleSidebar = () => {
+    const next = !sidebar;
+    setSidebar(next);
+    setSidebarPref(next);
+  };
+  const toggleTheme = () => {
+    const t = theme === 'light' ? 'dark' : 'light';
+    setTheme(t);
+    save('tfv-theme', t);
+  };
+  const changeLesson = (id: string) => {
+    setLessonId(id);
+    setResume(null);
+  };
+  const recordProgress = (id: string) => (p: LessonProgress) =>
+    setProgress(prev => {
+      const cur = prev[id];
+      if (
+        cur &&
+        cur.step === p.step &&
+        cur.index === p.index &&
+        cur.view === p.view &&
+        cur.method === p.method &&
+        cur.activeOnly === p.activeOnly
+      )
+        return prev;
+      return {...prev, [id]: p};
+    });
+  const startOver = () => {
+    setProgress(prev => {
+      const next = {...prev};
+      delete next[lessonId];
+      return next;
+    });
+    setLabRun(r => r + 1);
+    setResume(null);
+  };
+  const markComplete = () => {
+    const next = [...new Set([...completed, lessonId])];
+    setCompleted(next);
+    save('tfv-complete', JSON.stringify(next));
+  };
+  const closeModal = useCallback(() => setModal(null), []);
+  const openAtlas = (id: string) => setModal(symbols.find(s => s.id === id) ?? symbols[0]);
+  const navigate = (p: string) => {
+    setPage(p);
+    if (narrow()) setSidebar(false);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+  const selectLesson = (id: string) => {
+    changeLesson(id);
+    navigate('lessons');
+  };
+  const resumeLesson = resume ? lessons.find(l => l.id === resume) : undefined,
+    resumeProgress = resume ? progress[resume] : undefined;
+  const onLessons = page === 'lessons';
+
+  return (
+    <div className={`app ${theme} ${sidebar ? '' : 'collapsed'}`}>
+      <Sidebar
+        page={page}
+        open={sidebar}
+        completed={completed.length}
+        onNavigate={navigate}
+        onToggle={toggleSidebar}
+      />
+      <div className="workspace">
+        <Topbar
+          page={page}
+          sidebar={sidebar}
+          theme={theme}
+          onToggleSidebar={toggleSidebar}
+          onToggleTheme={toggleTheme}
+        />
+        <main className={onLessons ? 'compact-workspace' : undefined}>
+          {/* The lab stays mounted on other pages so in-progress state survives navigation. */}
+          <section hidden={!onLessons} aria-label="Investigation Workspace">
+            {onLessons && resumeLesson && resumeProgress && (
+              <ResumeCard
+                lesson={resumeLesson}
+                progress={resumeProgress}
+                onStartOver={startOver}
+                onContinue={() => setResume(null)}
+              />
+            )}
+            {onLessons && (
+              <InvestigationToolbar
+                lesson={lesson}
+                completed={completed}
+                appearance={appearance}
+                onLesson={changeLesson}
+                onAppearance={setAppearance}
+              />
+            )}
+            <Lab
+              key={`${lessonId}:${labRun}`}
+              lesson={lesson}
+              appearance={appearance}
+              initial={progress[lessonId] ?? defaultProgress(lesson)}
+              onProgress={recordProgress(lessonId)}
+              onAtlas={openAtlas}
+              onComplete={markComplete}
+            />
+            {onLessons && (
+              <InvestigationIndex
+                lessons={lessons}
+                lessonId={lessonId}
+                completed={completed}
+                progress={progress}
+                onSelect={selectLesson}
+                onSources={() => navigate('sources')}
+              />
+            )}
+          </section>
+          {page === 'atlas' && <Atlas onOpen={setModal} />}
+          {isReferencePage(page) && (
+            <>
+              <nav className="reference-sections" aria-label="Reference Sections">
+                {REFERENCE_PAGES.map(([id, label]) => (
+                  <button
+                    key={id}
+                    aria-current={page === id ? 'page' : undefined}
+                    className={page === id ? 'chosen' : ''}
+                    onClick={() => navigate(id)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </nav>
+              <Reference section={page} />
+            </>
+          )}
+        </main>
+      </div>
+      {modal && <SymbolDrawer symbol={modal} onClose={closeModal} />}
+    </div>
+  );
 }
-

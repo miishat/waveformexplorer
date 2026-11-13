@@ -1,0 +1,52 @@
+/* Symbol cards: centered tiles with a framed glyph; the title block reserves two lines so text lines up across each row. */
+.atlas-grid {
+  gap: 12px;
+  border: 0;
+}
+.atlas-grid .atlas-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--paper);
+}
+.atlas-grid .atlas-drawing {
+  height: 110px;
+  border-radius: 7px;
+  background: var(--soft);
+}
+.atlas-grid .atlas-drawing > .symbol-glyph {
+  height: 64px;
+}
+.atlas-grid .atlas-card-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 4px 2px;
+}
+.atlas-grid .atlas-card h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.35;
+  min-height: 2.7em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.atlas-grid .atlas-card p {
+  min-height: 0;
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.atlas-grid .atlas-card small {
+  margin-top: auto;
+}
+.atlas-grid .atlas-card:hover {
+  border-color: var(--selection);
+  background: var(--paper);
+}

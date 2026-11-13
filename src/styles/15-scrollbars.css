@@ -1,0 +1,34 @@
+/* Page and panel scrollbars follow the active theme (App mirrors the theme onto <html data-theme>). */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  background: #161616;
+  --scroll-thumb: #3a3a3a;
+  --scroll-thumb-hover: #555;
+  --scroll-track: #161616;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  background: #e7d6cd;
+  --scroll-thumb: #bf9c8e;
+  --scroll-thumb-hover: #a07e70;
+  --scroll-track: #e7d6cd;
+}
+:root[data-theme] {
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  scrollbar-width: thin;
+}
+:root[data-theme] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+:root[data-theme] ::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+:root[data-theme] ::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 10px;
+  border: 2px solid var(--scroll-track);
+}
+:root[data-theme] ::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}

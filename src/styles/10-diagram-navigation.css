@@ -1,0 +1,33 @@
+/* Diagram navigation stays stationary and uses subtle feedback. */
+.flow-svg {
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+}
+.flow-svg.panning {
+  cursor: grabbing;
+}
+.flow-svg [role='button'] {
+  cursor: pointer;
+}
+.zoom-tools button:hover,
+.expand-button:not(:disabled):hover {
+  background: #34443d;
+  border-radius: 4px;
+}
+.expand-button {
+  font-size: 12px;
+  padding: 6px;
+}
+.zoom-tools {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+}
+.zoom-tools button {
+  padding: 7px;
+}
+.value-box small,
+.code-lines button > span,
+.event-flags b {
+  font-family: 'IBM Plex Mono', monospace;
+}

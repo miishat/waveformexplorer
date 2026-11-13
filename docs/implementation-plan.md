@@ -1,5 +1,7 @@
 # Verdi Temporal Flow Explorer Implementation Plan
 
+> Historical: this is the original plan for the first 12-lesson build. See the README for the current structure.
+
 Goal: implement the user's approved specification as a React/TypeScript static teaching app.
 
 Architecture: source-backed inventory and curated event fixtures feed custom SVG diagrams, source highlights, waveforms and inspectors. No arbitrary RTL/FSDB ingestion or claims of proprietary engine parity. Sites hosts the static build privately.

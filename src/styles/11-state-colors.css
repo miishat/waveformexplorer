@@ -1,0 +1,176 @@
+/* Shared state meanings across diagram, source and samples. */
+.app {
+  --selection: #2563b8;
+  --selection-bg: #e7f0ff;
+  --state-active: #d3c37d;
+  --state-inactive: #829096;
+  --state-control: #c0a5db;
+  --state-transition: #f18b73;
+  --state-target: #dce3e9;
+  --diagram-selection: #83bdff;
+}
+.app.dark {
+  --selection: #d98e78;
+  --selection-bg: #3d2a24;
+  --on-sel: #1a1a1a;
+  --canvas: #111111;
+}
+.reference-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.reference-sections button {
+  padding: 10px 14px;
+  font-size: 13px;
+  border-bottom: 2px solid transparent;
+}
+.reference-sections button:hover {
+  background: var(--soft);
+}
+.reference-sections .chosen {
+  border-bottom-color: var(--selection);
+  color: var(--selection);
+}
+.app .sidebar nav button.active {
+  background: var(--selection-bg);
+  color: var(--selection);
+}
+.app .code-lines .line-highlight {
+  background: var(--selection-bg);
+  border-left-color: var(--selection);
+}
+.app .wave-row.highlight {
+  background: var(--selection-bg);
+  box-shadow: inset 3px 0 var(--selection);
+}
+.app .wave-value.current {
+  background: var(--selection-bg);
+  color: var(--selection);
+  border-color: var(--selection);
+}
+.app .wave-header .current {
+  color: var(--selection);
+}
+.app .wave-value.unknown {
+  color: #b34347;
+  border-color: #b34347;
+}
+.app.dark .wave-value.unknown {
+  color: #ffabb0;
+  border-color: #ffabb0;
+}
+.diagram-wrap {
+  background: #20272c;
+}
+.diagram-node .node-body,
+.teaching .diagram-node.active .node-body {
+  stroke: var(--state-active);
+  fill: #293239;
+}
+.diagram-node.inactive .node-body {
+  stroke: var(--state-inactive);
+  fill: #252c31;
+  stroke-dasharray: 4 3;
+}
+.diagram-node .node-value {
+  fill: #e3e9ee;
+}
+.diagram-node .target-ring {
+  stroke: var(--state-target);
+}
+.target-label {
+  fill: var(--state-target);
+}
+.diagram-pin {
+  fill: var(--state-active);
+  stroke: #20272c;
+}
+.diagram-node.inactive .diagram-pin,
+.diagram-pin.inactive-pin {
+  fill: var(--state-inactive);
+}
+.diagram-edge .visible-path {
+  stroke: var(--state-active);
+}
+.diagram-edge.control .visible-path {
+  stroke: var(--state-control);
+}
+.diagram-edge.inactive .visible-path {
+  stroke: var(--state-inactive);
+  stroke-dasharray: 4 4;
+}
+.transition-dot,
+.control-marker {
+  fill: var(--state-transition);
+}
+.diagram-node.selected .node-body {
+  stroke: var(--diagram-selection);
+  stroke-width: 2.7;
+  filter: none;
+}
+.diagram-edge.selected .visible-path,
+.time-boundary.selected path,
+.input-group.selected rect {
+  stroke: var(--diagram-selection);
+}
+.diagram-node .diagram-pin.picked {
+  fill: var(--diagram-selection);
+  stroke: #fff;
+}
+.canvas-key .key-active,
+.canvas-key .key-inactive,
+.canvas-key .key-control {
+  width: 16px;
+  height: 0;
+  border-radius: 0;
+  background: none;
+  border-top: 2px solid var(--state-active);
+}
+.canvas-key .key-inactive {
+  border-top: 2px dashed var(--state-inactive);
+}
+.canvas-key .key-control {
+  border-color: var(--state-control);
+}
+.canvas-key .key-transition {
+  background: var(--state-transition);
+}
+.canvas-key .key-target {
+  width: 11px;
+  height: 11px;
+  background: none;
+  border: 1px dashed var(--state-target);
+  border-radius: 2px;
+}
+.canvas-key .key-selection {
+  width: 11px;
+  height: 11px;
+  background: none;
+  border: 2px solid var(--diagram-selection);
+  border-radius: 2px;
+}
+.canvas-toolbar {
+  flex-wrap: wrap;
+}
+.canvas-key {
+  flex: 1;
+  min-width: 0;
+}
+.zoom-tools {
+  margin-left: auto;
+}
+.flow-svg {
+  overflow: hidden;
+  max-width: 100%;
+}
+.diagram-scroll {
+  width: 100%;
+}
+@media (max-width: 850px) {
+  .canvas-key {
+    flex-basis: 100%;
+  }
+}

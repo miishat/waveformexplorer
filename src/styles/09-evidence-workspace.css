@@ -1,0 +1,342 @@
+/* Evidence workspace: readable controls, docked panels, distinct content structures. */
+.sidebar {
+  width: 236px;
+  padding: 24px 18px;
+}
+.workspace {
+  margin-left: 236px;
+}
+.sidebar nav {
+  margin-top: 32px;
+}
+.sidebar nav button {
+  font-size: 13px;
+}
+.progress-card {
+  font-size: 12px;
+}
+.progress-card small {
+  font-size: 11px;
+}
+main {
+  max-width: none;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.compact-workspace {
+  padding-top: 12px;
+}
+.investigation-question {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.breadcrumb {
+  letter-spacing: 0;
+  font-size: 12px;
+}
+.breadcrumb b {
+  font-size: 13px;
+}
+.lab {
+  border-radius: 3px;
+}
+select {
+  font-size: 13px;
+}
+.diagram-scroll {
+  overflow: hidden;
+  min-width: 0;
+}
+.flow-svg {
+  min-width: 0;
+  width: 100%;
+  height: 330px;
+  min-height: 330px;
+  flex: none;
+}
+.diagram-node .node-name {
+  font-size: 17px;
+}
+.diagram-node .node-value {
+  font-size: 17px;
+}
+.diagram-node .role-text {
+  font-size: 13px;
+}
+.diagram-node .node-time {
+  font-size: 14px;
+}
+.diagram-node .node-state {
+  font-size: 12px;
+}
+.target-label {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+.time-boundary text {
+  font-size: 14px;
+}
+.diagram-edge text {
+  font-size: 13px;
+}
+.canvas-toolbar {
+  padding: 8px 12px;
+}
+.canvas-key,
+.compact-workspace .canvas-key {
+  font-size: 12px;
+  gap: 10px;
+}
+.canvas-key i {
+  width: 7px;
+  height: 7px;
+}
+.key-selection {
+  background: #83bdff;
+}
+.expand-button {
+  font-size: 12px;
+}
+.zoom-tools {
+  font-size: 12px;
+}
+.zoom-tools button {
+  min-width: 28px;
+  min-height: 28px;
+}
+.inspector {
+  display: block;
+  padding: 14px 16px;
+  border: 0;
+  max-height: 440px;
+  overflow: auto;
+  min-width: 0;
+}
+.inspector-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.inspector h3 {
+  font-size: 18px;
+  margin: 8px 0;
+}
+.inspector > p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+.small-tag {
+  font-size: 12px;
+}
+.value-box {
+  padding: 10px 12px;
+  margin: 10px 0;
+}
+.value-box span,
+.value-box small {
+  font-size: 12px;
+}
+.value-box strong {
+  font-size: 23px;
+}
+.facts {
+  font-size: 13px;
+}
+.inspector .text-button {
+  font-size: 13px;
+}
+.facts > div {
+  padding: 6px 0;
+}
+.linked-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
+  height: 224px;
+  min-height: 0;
+  background: var(--paper);
+}
+.code-panel,
+.wave-panel {
+  overflow: auto;
+  min-width: 0;
+}
+.panel-heading {
+  position: sticky;
+  top: 0;
+  background: var(--soft);
+  z-index: 1;
+  padding: 9px 13px;
+  font-size: 13px;
+}
+.panel-heading span {
+  font-size: 12px;
+}
+.code-lines {
+  padding: 8px 0;
+}
+.code-lines button {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.code-lines code {
+  font-size: 13px;
+}
+.wave-table {
+  font-size: 13px;
+}
+.wave-row button,
+.wave-header button {
+  font-size: 13px;
+  padding: 6px;
+}
+.panel-footnote {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 8px 12px;
+}
+.method-explanation,
+.compact-workspace .method-explanation {
+  display: block;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+.method-explanation summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.method-explanation > div {
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.method-explanation b {
+  margin-right: 10px;
+}
+.sampling-notice {
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 13px;
+  background: var(--soft);
+}
+.event-flags {
+  font-size: 13px;
+  padding: 0 16px 14px;
+}
+.pitfall,
+.exercise {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+.pitfall p,
+.exercise p,
+.answer-explanation,
+.answers button {
+  font-size: 14px;
+}
+.exercise {
+  border-left: 1px solid var(--border);
+  padding-left: 24px;
+}
+.exercise-label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.atlas-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.atlas-card {
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+.atlas-card:hover {
+  transform: none;
+  background: var(--soft);
+}
+.atlas-drawing {
+  height: 140px;
+  background: transparent;
+}
+.atlas-card-copy {
+  padding: 12px 16px;
+}
+.atlas-card-copy > .eyebrow {
+  display: none;
+}
+.atlas-card p {
+  font-size: 14px;
+}
+.atlas-card small {
+  font-size: 12px;
+}
+@media (min-width: 1400px) {
+  .flow-svg {
+    height: 360px;
+    min-height: 360px;
+  }
+}
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 180px;
+  }
+  .workspace {
+    margin-left: 180px;
+  }
+  main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .inspector {
+    padding: 12px;
+  }
+  .linked-panels {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 850px) {
+  .workspace,
+  .app:not(.collapsed) .workspace {
+    margin-left: 0;
+  }
+  .sidebar {
+    top: 48px;
+  }
+  .inspector {
+    max-height: 270px;
+    border-top: 1px solid var(--border);
+  }
+  .linked-panels {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+  .code-panel,
+  .wave-panel {
+    max-height: 240px;
+  }
+  .exercise {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .canvas-key {
+    gap: 8px;
+  }
+  .flow-svg {
+    height: 350px;
+  }
+}

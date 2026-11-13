@@ -1,0 +1,30 @@
+/* SVG focus follows the symbol, never the group's label/timestamp bounds. */
+.flow-svg [role='button']:focus,
+.flow-svg [role='button']:focus-visible {
+  outline: none;
+}
+.flow-svg .diagram-node.selected .node-body {
+  stroke: #83bdff;
+  stroke-width: 2;
+  filter: none;
+}
+.flow-svg .diagram-node > [role='button']:focus-visible .node-body {
+  stroke: #b8d9ff;
+  stroke-width: 3;
+  stroke-dasharray: 5 2;
+}
+.flow-svg .diagram-pin:focus-visible {
+  stroke: #b8d9ff;
+  stroke-width: 3;
+}
+.flow-svg .diagram-edge:focus-visible .visible-path {
+  stroke: #b8d9ff;
+  stroke-width: 3;
+  stroke-dasharray: 5 2;
+}
+.flow-svg .time-boundary:focus-visible path,
+.flow-svg .input-group:focus-visible rect {
+  stroke: #b8d9ff;
+  stroke-width: 3;
+  stroke-dasharray: 5 2;
+}

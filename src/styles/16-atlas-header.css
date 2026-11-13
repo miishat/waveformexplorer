@@ -1,0 +1,115 @@
+/* Symbol Atlas header: title with count badge, then one bar for categories, search, and result count. */
+.atlas-heading {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 12px;
+  margin-bottom: 18px;
+  color: var(--ink);
+}
+.atlas-heading h1 {
+  margin: 0 0 6px;
+  font-size: 34px;
+  font-weight: 550;
+  letter-spacing: -1px;
+  line-height: 1.15;
+}
+.atlas-heading p {
+  grid-column: 1/-1;
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.atlas-badge {
+  justify-self: start;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--selection-bg);
+  color: var(--selection);
+  font:
+    13px 'IBM Plex Mono',
+    monospace;
+}
+.atlas-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 12px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+.atlas-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.atlas-chips button {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.atlas-chips button:hover {
+  color: var(--ink);
+  border-color: var(--muted);
+}
+.atlas-chips button[aria-pressed='true'] {
+  background: var(--selection);
+  border-color: var(--selection);
+  color: var(--on-sel, #fff);
+}
+.atlas-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border);
+}
+.atlas-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 220px;
+  height: 34px;
+  padding: 0 12px;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--muted);
+}
+.atlas-search:focus-within {
+  border-color: var(--selection);
+}
+.atlas-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: var(--ink);
+  font-size: 13px;
+}
+.atlas-search button {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+.atlas-count {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .atlas-divider {
+    display: none;
+  }
+  .atlas-search {
+    flex-basis: 100%;
+  }
+}

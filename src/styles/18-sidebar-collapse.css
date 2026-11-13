@@ -1,0 +1,100 @@
+/* Sidebar collapse. Desktop: an edge tab, shown while hovering the sidebar, collapses it to a 64px icon rail, and the logo band lines up with the 48px top bar. At 850px and below the top bar button still opens the sidebar as an overlay. */
+.sidebar-tab {
+  display: none;
+}
+@media (min-width: 851px) {
+  .topbar .nav-toggle {
+    display: none;
+  }
+  .sidebar {
+    padding-top: 0;
+    transition:
+      width 0.2s,
+      padding 0.2s;
+  }
+  .workspace {
+    transition: margin 0.2s;
+  }
+  .brand {
+    height: 48px;
+    margin: 0 -18px;
+    padding: 0 18px;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 17px;
+  }
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    flex: none;
+  }
+  .brand-mark svg {
+    width: 17px;
+    height: 17px;
+  }
+  .sidebar nav {
+    margin-top: 20px;
+  }
+  .sidebar-tab {
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 48px;
+    margin-top: -24px;
+    padding: 0 0 0 2px;
+    background: var(--sidebar);
+    border: 1px solid var(--border);
+    border-left: 0;
+    border-radius: 0 8px 8px 0;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .sidebar:hover .sidebar-tab,
+  .sidebar-tab:focus-visible {
+    opacity: 1;
+  }
+  .sidebar-tab:hover {
+    color: var(--selection);
+  }
+  .collapsed .sidebar {
+    transform: none;
+    width: 64px;
+    padding: 0 10px;
+  }
+  .collapsed .workspace {
+    margin-left: 64px;
+  }
+  .collapsed .brand {
+    margin: 0 -10px;
+    padding: 0;
+    justify-content: center;
+  }
+  .collapsed .brand > div:last-child,
+  .collapsed .progress-card,
+  .collapsed .side-rule,
+  .collapsed .sidebar nav small {
+    display: none;
+  }
+  .collapsed .sidebar nav span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .collapsed .sidebar nav button {
+    justify-content: center;
+    padding: 12px 0;
+  }
+}
+/* Every page starts 20px below the top bar, level with the first sidebar item. */
+main,
+main.compact-workspace {
+  padding-top: 20px;
+}

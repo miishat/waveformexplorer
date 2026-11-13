@@ -1,0 +1,142 @@
+/* Legend and Shortcuts popups: outlined buttons that turn to the highlight color when open, and a full-width themed card under the diagram toolbar. Only one is open at a time. */
+.canvas-popover {
+  font-size: 12px;
+  color: var(--ink);
+}
+.canvas-popover > summary {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 9px;
+  list-style: none;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--ink);
+}
+.canvas-popover > summary::-webkit-details-marker {
+  display: none;
+}
+.canvas-popover > summary:hover,
+.canvas-popover[open] > summary {
+  border-color: var(--selection);
+}
+.canvas-popover[open] > summary {
+  color: var(--selection);
+}
+.canvas-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 8px;
+  right: 8px;
+  z-index: 6;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 10px 26px #0004;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.canvas-panel .canvas-key {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.canvas-panel .canvas-key em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.canvas-key-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+}
+.canvas-shortcuts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content minmax(0, 1fr);
+  align-items: center;
+  gap: 9px 14px;
+  margin: 0;
+}
+.canvas-shortcuts > div {
+  display: contents;
+}
+.canvas-shortcuts dt {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.canvas-shortcuts dd {
+  margin: 0 14px 0 0;
+  color: var(--ink);
+}
+.canvas-shortcuts kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--soft);
+  color: var(--ink);
+  font:
+    11.5px 'IBM Plex Mono',
+    monospace;
+}
+@media (max-width: 700px) {
+  .canvas-shortcuts {
+    grid-template-columns: max-content minmax(0, 1fr);
+  }
+}
+/* The diagram toolbar is dark in both themes, so its popup buttons use the same light-on-dark colors as the other toolbar buttons. */
+.canvas-popover > summary {
+  color: #d3dce5;
+  border-color: #46515c;
+}
+.canvas-popover > summary:hover,
+.canvas-popover[open] > summary {
+  border-color: #d98e78;
+}
+.canvas-popover[open] > summary {
+  color: #d98e78;
+}
+.canvas-panel .canvas-key {
+  gap: 8px 12px;
+}
+.canvas-panel .canvas-key span {
+  white-space: nowrap;
+}
+/* In light mode the popup follows the light theme, with darker marker colors so they stay visible on the light card. */
+.app.light .canvas-panel {
+  --state-active: #8f7d2c;
+  --state-inactive: #5f6b70;
+  --state-control: #7d5aa6;
+  --state-transition: #c9573a;
+  --state-target: #6b7480;
+  --diagram-selection: #2f74c9;
+}
+/* Tighter zoom controls so the diagram toolbar fits on one line next to Legend, Shortcuts and Options. */
+.canvas-toolbar .zoom-tools {
+  gap: 2px;
+}
+.canvas-toolbar .zoom-tools button {
+  padding: 5px;
+}
+@media (max-width: 850px) {
+  .canvas-toolbar {
+    justify-content: flex-start;
+  }
+}

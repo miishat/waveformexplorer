@@ -1,0 +1,60 @@
+.atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.atlas-card {
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--paper);
+  text-align: left;
+  overflow: hidden;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+.atlas-card:hover {
+  border-color: #91a18a;
+}
+.atlas-drawing {
+  height: 132px;
+  background: var(--soft);
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.atlas-drawing > .symbol-glyph {
+  height: 85px;
+  max-width: 150px;
+}
+.atlas-drawing > svg:last-child:not(.symbol-glyph) {
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  color: var(--muted);
+}
+.atlas-card-copy {
+  padding: 20px;
+}
+.atlas-card h3 {
+  margin: 10px 0;
+  font-size: 16px;
+}
+.atlas-card p {
+  font-size: 11px;
+  color: var(--muted);
+  min-height: 38px;
+}
+.atlas-card small {
+  font-size: 9px;
+  color: var(--green);
+}
+.empty-state {
+  text-align: center;
+  padding: 65px;
+  color: var(--muted);
+}
+.empty-state > svg {
+  margin-bottom: 20px;
+}
